@@ -5,7 +5,8 @@ let ObjectId = Schema.Types.ObjectId
 const Board = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  creatorEmail: { type: String, required: true }
+  creatorEmail: { type: String, required: true },
+  profileId: { type: ObjectId, ref: "Profile" }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 Board.virtual("creator",

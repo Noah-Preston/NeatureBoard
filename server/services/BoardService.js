@@ -34,7 +34,9 @@ class BoardService {
       throw new BadRequest("Invalid ID or you do not own this board");
     }
   }
-
+  async getBoardsByProfileId(id) {
+    return await dbContext.Boards.find({ profileId: id })
+  }
 }
 
 
