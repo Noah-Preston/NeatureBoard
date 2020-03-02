@@ -3,13 +3,20 @@
     <navbar />
     <div class="boards boardsBackground">
 
-      <form @submit.prevent="addBoard">
+      <form @submit.prevent="addBoard" class="p-3">
         <input type="text" placeholder="title" v-model="newBoard.title" required class="rounded" />
         <input type="text" placeholder="description" v-model="newBoard.description" class="rounded" />
         <button type="submit" class="btn btn-success">Create Board</button>
       </form>
       <div v-for="board in boards" :key="board._id">
-        <router-link :to="{name: 'board', params: {boardId: board._id}}">{{board.title}}</router-link>
+        <div class="row p-2">
+          <div class="col-4"></div>
+          <router-link :to="{name: 'board', params: {boardId: board._id}}" class="col-4 card text-dark">
+            <h5>{{board.title}}</h5>
+            <span>{{board.description}}</span>
+          </router-link>
+        </div>
+        <div class="col-4"></div>
       </div>
     </div>
   </div>
