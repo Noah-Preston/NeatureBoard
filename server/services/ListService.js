@@ -34,8 +34,8 @@ class ListService {
       throw new BadRequest("Invalid ID or you do not own this board");
     }
   }
-  async getListsByProfileId(id) {
-    return await dbContext.Lists.find({ profileId: id })
+  async getListsByBoardId(id) {
+    return await dbContext.Lists.find({ boardId: id })
   }
 }
 
