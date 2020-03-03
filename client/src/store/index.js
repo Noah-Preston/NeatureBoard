@@ -36,6 +36,18 @@ export default new Vuex.Store({
     setLists(state, lists) {
       state.lists = lists;
     },
+    removeList(state, id) {
+      state.lists = state.lists.filter(l => l.id != id)
+    },
+    removeBoard(state, id) {
+      state.boards = state.boards.filter(b => b.id != id)
+    },
+    removeNote(state, id) {
+      state.notes = state.notes.filter(n => n.id != id)
+    },
+    removeTask(state, id) {
+      state.tasks = state.tasks.filter(t => t.id != id)
+    }
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -108,14 +120,54 @@ export default new Vuex.Store({
         router.push({ name: "boards" })
       }
     },
-    removeList({ commit, dispatch }, listId) {
-
-    }
+    async getListsByBoardId({ commit, dispatch }, board) {
+      try {
+        let res = await api.get("boards/" + board.id + "/lists");
+        commit("setLists", res.data)
+      } catch (error) {
+        console.error(error)
+        router.push({ name: "Boards" })
+      }
+    },
+    async deleteList({ commit, dispatch }, listData) {
+      try {
+        // debugger
+        let res = await api.delete("lists/" + listData.id)
+        let resu = await api.get("boards/" + listData.boardId + "/lists");
+        commit("removeList", listData.id)
+        commit("setLists", resu.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
 
 
 
 
 
     //#endregion
+
+    //#region -- TASKSS --
+    async deleteTask({ commit, dispatch }, taskId) {
+      try {
+        let res = await api.delete("tasks/" + taskId)
+        commit("removeTask", taskId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    //#endregion
+
+    //#region -- NOTES --
+    async deleteNote({ commit, dispatch }, noteId) {
+      try {
+        let res = await api.delete("notes/" + noteId)
+        commit("removeNote", noteId)
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    ////#endregion
   }
 })
