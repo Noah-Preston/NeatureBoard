@@ -3,7 +3,7 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { noteService } from "../services/NoteService";
 
-export class NoteController extends BaseController {
+export class NotesController extends BaseController {
   constructor() {
     super("api/notes");
     this.router = express

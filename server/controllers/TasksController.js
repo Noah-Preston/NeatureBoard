@@ -3,7 +3,7 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { taskService } from "../services/TaskService";
 
-export class TaskController extends BaseController {
+export class TasksController extends BaseController {
   constructor() {
     super("api/tasks");
     this.router = express
