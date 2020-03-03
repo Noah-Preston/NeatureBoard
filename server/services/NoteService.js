@@ -2,13 +2,13 @@ import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
 
 
-class ListService {
+class NoteService {
   async getAll(userEmail) {
-    return await dbContext.Lists.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+    return await dbContext.Notes.find({ creatorEmail: userEmail }).populate("creator", "name picture")
   }
 
   async getById(id, userEmail) {
-    let data = await dbContext.Lists.findOne({ _id: id, creatorEmail: userEmail })
+    let data = await dbContext.Notes.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
     }
@@ -16,12 +16,12 @@ class ListService {
   }
 
   async create(rawData) {
-    let data = await dbContext.Lists.create(rawData)
+    let data = await dbContext.Notes.create(rawData)
     return data
   }
 
   async edit(id, userEmail, update) {
-    let data = await dbContext.Lists.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
+    let data = await dbContext.Notes.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board");
     }
@@ -29,15 +29,15 @@ class ListService {
   }
 
   async delete(id, userEmail) {
-    let data = await dbContext.Lists.findOneAndRemove({ _id: id, creatorEmail: userEmail });
+    let data = await dbContext.Notes.findOneAndRemove({ _id: id, creatorEmail: userEmail });
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board");
     }
   }
-  async getListsByProfileId(id) {
-    return await dbContext.Lists.find({ profileId: id })
+  async getNotesByListId(id) {
+    return await dbContext.Notes.find({ listId: id })
   }
 }
 
 
-export const listService = new ListService()
+export const noteService = new NoteService()
