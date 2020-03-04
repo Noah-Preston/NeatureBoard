@@ -42,7 +42,7 @@ export class ListsController extends BaseController {
   async delete(req, res, next) {
     try {
       await listService.delete(req.params.id, req.userInfo.email)
-      res.status(410).send("DeLorted")
+      res.send("DeLorted")
     } catch (error) {
       next(error)
     }
