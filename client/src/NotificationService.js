@@ -17,11 +17,11 @@ export default class NotificationService {
     return false
   }
 
-  static toast(title = "", timer = 3000) {
+  static toast(title = "") {
     swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Your work has been saved',
+      title,
       showConfirmButton: false,
       timer: 1500
     })

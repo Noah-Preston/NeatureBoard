@@ -90,7 +90,7 @@ export default new Vuex.Store({
         commit("setActiveBoard", res.data)
       } catch (error) {
         console.error(error)
-        router.push({ name: "Boards" })
+        router.push({ name: "boards" })
       }
     },
     async deleteBoard({ commit, dispatch }, boardId) {
@@ -98,9 +98,10 @@ export default new Vuex.Store({
         let res = await api.delete("boards/" + boardId);
         commit("removeBoard", boardId)
         commit("setActiveBoard", {})
+        router.push({ name: "boards" })
       } catch (error) {
         console.error(error)
-        router.push({ name: "Boards" })
+        router.push({ name: "boards" })
       }
     },
 
