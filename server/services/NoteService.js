@@ -34,8 +34,8 @@ class NoteService {
       throw new BadRequest("Invalid ID or you do not own this board");
     }
   }
-  async getNotesByListId(id) {
-    return await dbContext.Notes.find({ listId: id })
+  async getNotesByTaskId(id) {
+    return await dbContext.Notes.find({ taskId: id })
   }
 }
 

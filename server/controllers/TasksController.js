@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { taskService } from "../services/TaskService";
+import { noteService } from "../services/NoteService";
 
 export class TasksController extends BaseController {
   constructor() {
@@ -13,6 +14,7 @@ export class TasksController extends BaseController {
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
+      .get("/:id/notes", this.getNotesByTaskId)
   }
   async getTaskById(req, res, next) {
     try {
@@ -24,6 +26,7 @@ export class TasksController extends BaseController {
   }
   async create(req, res, next) {
     try {
+      req.body.creatorEmail = req.userInfo.email
       let data = await taskService.create(req.body)
       return res.status(201).send(data)
     } catch (error) {
@@ -42,6 +45,14 @@ export class TasksController extends BaseController {
     try {
       await taskService.delete(req.params.id, req.userInfo.email)
       res.status(410).send("DeLorted")
+    } catch (error) {
+      next(error)
+    }
+  }
+  async getNotesByTaskId(req, res, next) {
+    try {
+      let data = await noteService.getNotesByTaskId(req.params.id)
+      res.send(data)
     } catch (error) {
       next(error)
     }

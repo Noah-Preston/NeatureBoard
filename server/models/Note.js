@@ -5,7 +5,7 @@ let ObjectId = Schema.Types.ObjectId
 const Note = new Schema({
   title: { type: String, required: true },
   creatorEmail: { type: String, required: true },
-  TaskId: { type: ObjectId, ref: 'Task', required: true }
+  taskId: { type: ObjectId, ref: 'Task', required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
