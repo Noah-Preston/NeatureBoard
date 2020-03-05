@@ -4,7 +4,7 @@
       <div class="col-12 d-flex align-items-center homev justify-content-center">
         <div class="row">
           <div class="col-12">
-            <h4 class="text-white logoFont">Welcome to NeatureBoard</h4>
+            <h4 class="text-secondary logoFont">Welcome to NeatureBoard</h4>
           </div>
           <div class="col-12"><button class="btn btn-light btn-lg" @click="login">Log In</button></div>
         </div>
@@ -44,7 +44,7 @@
 
 <style scoped>
   .home {
-    background-image: URL("../assets/home-background.jpg");
+    background-image: URL("../assets/mountains.jpg");
     background-size: cover;
     height: 100vh;
     width: 100vw;
