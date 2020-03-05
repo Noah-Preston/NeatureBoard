@@ -70,7 +70,6 @@ export default {
 
   methods: {
     addTask() {
-      debugger;
       let data = {
         listId: this.listData.id,
         content: this.newTask.content

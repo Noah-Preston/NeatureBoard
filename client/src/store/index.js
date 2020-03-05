@@ -157,7 +157,7 @@ export default new Vuex.Store({
 
 
 
-
+    //update
     //#endregion
 
     //#region -- TASKSS --
@@ -172,7 +172,6 @@ export default new Vuex.Store({
     async addTask({ commit, dispatch }, taskData) {
       try {
         let res = await api.post('tasks', taskData)
-        // let resu = await api.get("lists/" + taskData.listId + "/tasks");
         commit("addTask", res.data)
       } catch (error) {
         console.error(error)
