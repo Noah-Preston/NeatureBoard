@@ -1,9 +1,18 @@
 <template>
-  <div class="col"></div>
+  <div class="col">{{this.taskData.content}}</div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Task",
+  props: ["taskData", "taskIndex"],
+  computed: {
+    tasks() {
+      let data = this.$store.state.tasks;
+      return data;
+    }
+  }
+};
 </script>
 
 <style>
