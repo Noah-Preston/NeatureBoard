@@ -24,6 +24,7 @@ export class NotesController extends BaseController {
   }
   async create(req, res, next) {
     try {
+      req.body.creatorEmail = req.userInfo.email
       let data = await noteService.create(req.body)
       return res.status(201).send(data)
     } catch (error) {
@@ -41,7 +42,7 @@ export class NotesController extends BaseController {
   async delete(req, res, next) {
     try {
       await noteService.delete(req.params.id, req.userInfo.email)
-      res.status(410).send("DeLorted")
+      res.send("DeLorted")
     } catch (error) {
       next(error)
     }
