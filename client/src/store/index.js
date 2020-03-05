@@ -21,7 +21,8 @@ export default new Vuex.Store({
     activeBoard: {},
     lists: [],
     tasks: {},
-    notes: {}
+    notes: {},
+    temp: []
   },
   mutations: {
     setUser(state, user) {
@@ -53,6 +54,14 @@ export default new Vuex.Store({
     },
     removeBoard(state, id) {
       state.boards = state.boards.filter(b => b.id != id)
+    },
+    pickUp(state, task) {
+      let temp = state.tasks[task.listId].find(t => t.id == task.id)
+      state.temp.push(temp)
+      state.tasks = state.tasks[task.listId].filter(t => t.id != task.id)
+    },
+    moveTask(state, listId) {
+      state.temp = []
     }
   },
   actions: {
@@ -180,6 +189,14 @@ export default new Vuex.Store({
         console.error(error)
         router.push({ name: "Boards" })
       }
+    },
+    pickUp({ commit, dispatch }, taskData) {
+      commit("pickUp", taskData)
+    },
+    async moveTask({ commit, dispatch, state }, update) {
+      await api.put('tasks/' + state.temp[0].id, update)
+      commit("moveTask", update.listId)
+      dispatch("getTasks", update.listId)
     },
     //#endregion
 
