@@ -97,8 +97,8 @@
   }
 
   .board-font {
-    font-family: "Boogaloo", cursive;
-    text-shadow: 2px 2px rgb(8, 8, 8);
+    font-family: 'Raleway', sans-serif;
+    text-shadow: 3px 3px rgb(8, 8, 8);
   }
 
   #board-title {
