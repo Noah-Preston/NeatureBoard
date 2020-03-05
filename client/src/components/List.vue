@@ -15,7 +15,7 @@
           />
           <button type="submit" class="btn btn-sm btn-info">+</button>
         </form>
-        <div class="row">
+        <div class="row text-center">
           <Task
             v-for="(taskObj, index) in tasks"
             :key="taskObj.id"

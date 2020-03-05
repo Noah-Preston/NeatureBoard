@@ -42,6 +42,12 @@ export default new Vuex.Store({
     addTask(state, task) {
       state.tasks[task.listId].push(task)
     },
+    setNotes(state, notes) {
+      Vue.set(state.notes, notes.id, notes.data)
+    },
+    addNote(state, note) {
+      state.notes[note.listId].push(note)
+    },
     removeList(state, id) {
       state.lists = state.lists.filter(l => l.id != id)
     },
@@ -155,10 +161,10 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- TASKSS --
-    async deleteTask({ commit, dispatch }, taskId) {
+    async deleteTask({ commit, dispatch }, task) {
       try {
-        let res = await api.delete("tasks/" + taskId)
-        commit("removeTask", taskId)
+        let res = await api.delete("tasks/" + task.id)
+        dispatch("getTasks", task.listId)
       } catch (error) {
         console.error(error)
       }
@@ -193,7 +199,26 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
-    }
+    },
+    async addNote({ commit, dispatch }, noteData) {
+      try {
+        let res = await api.post('notes', noteData)
+        // let resu = await api.get("lists/" + noteData.listId + "/notes");
+        commit("addNote", res.data)
+      } catch (error) {
+        console.error(error)
+        router.push({ name: "boards" })
+      }
+    },
+    async getNotes({ commit, dispatch }, id) {
+      try {
+        let res = await api.get("tasks/" + id + "/notes");
+        commit("setNotes", { id, data: res.data })
+      } catch (error) {
+        console.error(error)
+        router.push({ name: "Boards" })
+      }
+    },
     ////#endregion
   }
 })
