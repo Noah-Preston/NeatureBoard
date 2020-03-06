@@ -9,19 +9,23 @@
     >
       <ul class="list-group list list-group-flush">
         <li>
-          <span
-            data-toggle="modal"
-            data-target="#exampleModal"
-            class="mouse"
-          >{{this.taskData.content}}</span>
+          <span class="pl-1">{{this.taskData.content}}</span>
           <i @click="deleteTask" class="text-danger far fa-trash-alt mouse float-right pt-1 pr-1"></i>
+          <br />
+          <div
+            class="pl-1 float-left note-count"
+            data-toggle="modal"
+            :data-target="'#taskmodal' + this.taskData.id"
+          >
+            <strong>Notes:{{this.notes.length}}</strong>
+          </div>
         </li>
       </ul>
     </div>
 
     <div
       class="modal fade"
-      id="exampleModal"
+      :id="'taskmodal' + this.taskData.id"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -96,7 +100,7 @@ export default {
       return data;
     },
     notes() {
-      return this.$store.state.notes[this.taskData._id];
+      return this.$store.state.notes[this.taskData._id] || [];
     }
   },
 
@@ -131,7 +135,15 @@ export default {
 .mouse {
   cursor: pointer;
 }
-
+.note-count {
+  font-family: "Amatic SC";
+  cursor: pointer;
+}
+.note-count:hover {
+  margin-left: 0.2rem;
+  transition: 0.25s ease;
+  color: rgb(116, 176, 255);
+}
 .misty {
   background-image: url("../assets/misty.jpeg");
   background-size: cover;

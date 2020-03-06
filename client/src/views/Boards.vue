@@ -12,7 +12,7 @@
           <div class="col-4"></div>
           <router-link
             :to="{name: 'board', params: {boardId: board._id}}"
-            class="col-4 card text-dark"
+            class="col-4 card text-white board-card"
           >
             <h5>{{board.title}}</h5>
             <span>{{board.description}}</span>
@@ -69,5 +69,14 @@ export default {
   white-space: nowrap;
   flex-wrap: nowrap;
   margin-bottom: 0vh;
+}
+.board-card {
+  background-color: rgba(59, 59, 59, 0.507);
+}
+.board-card:hover {
+  text-decoration: none;
+  background-color: rgba(59, 59, 59);
+  margin-left: 0.7rem;
+  transition: 0.25s ease;
 }
 </style>
