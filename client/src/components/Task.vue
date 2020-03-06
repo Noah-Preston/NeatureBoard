@@ -1,33 +1,63 @@
 <template>
-  <div class="col py-1">
-    <div class="card" style="width: 12.5rem;" draggable="true" @dragstart="pickUp" @dragover.prevent>
+  <div class="col py-1 card-width">
+    <div
+      class="card"
+      style="width: 12.5rem;"
+      draggable="true"
+      @dragstart="pickUp"
+      @dragover.prevent
+    >
       <ul class="list-group list list-group-flush">
         <li>
-          <i @click="deleteTask" class="text-danger far fa-trash-alt mouse"></i>
-          <span data-toggle="modal" data-target="#exampleModal" class="mouse">{{this.taskData.content}}</span>
+          <span
+            data-toggle="modal"
+            data-target="#exampleModal"
+            class="mouse"
+          >{{this.taskData.content}}</span>
+          <i @click="deleteTask" class="text-danger far fa-trash-alt mouse float-right pt-1 pr-1"></i>
         </li>
       </ul>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header misty">
-            <h1 class="modal-title text-center taskFont d-flex align-self-center" id="exampleModalLabel">
-              <strong>{{this.taskData.content}}</strong></h1>
+            <h1
+              class="modal-title text-center taskFont d-flex align-self-center"
+              id="exampleModalLabel"
+            >
+              <strong>{{this.taskData.content}}</strong>
+            </h1>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <ul class="list">
-              <Note v-for="(noteObj, index) in notes" :key="noteObj.id" :noteData="noteObj" :noteIndex="index" />
+              <Note
+                v-for="(noteObj, index) in notes"
+                :key="noteObj.id"
+                :noteData="noteObj"
+                :noteIndex="index"
+              />
             </ul>
             <form>
               <div class="form-group">
-                <input type="text" placeholder="Add Note.." v-model="newNote.content" required
-                  class="rounded form-width" />
+                <input
+                  type="text"
+                  placeholder="Add Note.."
+                  v-model="newNote.content"
+                  required
+                  class="rounded form-width"
+                />
                 <button type="button" class="btn btn-primary" @click="addNote">+</button>
               </div>
             </form>
@@ -42,74 +72,73 @@
 </template>
 
 <script>
-  import NotificationService from "../NotificationService";
-  import Note from "./Note";
-  export default {
-    name: "Task",
-    props: ["taskData", "taskIndex"],
-    mounted() {
-      return this.$store.dispatch("getNotes", this.taskData._id);
-    },
-    data() {
-      return {
-        newNote: {
-          taskId: this.taskData.id
-        }
-      };
-    },
-    components: {
-      Note
-    },
-    computed: {
-      tasks() {
-        let data = this.$store.state.tasks;
-        return data;
-      },
-      notes() {
-        return this.$store.state.notes[this.taskData._id];
+import NotificationService from "../NotificationService";
+import Note from "./Note";
+export default {
+  name: "Task",
+  props: ["taskData", "taskIndex"],
+  mounted() {
+    return this.$store.dispatch("getNotes", this.taskData._id);
+  },
+  data() {
+    return {
+      newNote: {
+        taskId: this.taskData.id
       }
+    };
+  },
+  components: {
+    Note
+  },
+  computed: {
+    tasks() {
+      let data = this.$store.state.tasks;
+      return data;
     },
-
-    methods: {
-      async deleteTask() {
-        if (await NotificationService.confirmDelete()) {
-          this.$store.dispatch("deleteTask", this.taskData);
-        }
-      },
-      addNote() {
-        let data = {
-          taskId: this.taskData.id,
-          content: this.newNote.content
-        };
-        this.$store.dispatch("addNote", data);
-      },
-      pickUp() {
-        this.$store.dispatch("pickUp", this.taskData);
-      }
+    notes() {
+      return this.$store.state.notes[this.taskData._id];
     }
-  };
+  },
+
+  methods: {
+    async deleteTask() {
+      if (await NotificationService.confirmDelete()) {
+        this.$store.dispatch("deleteTask", this.taskData);
+      }
+    },
+    addNote() {
+      let data = {
+        taskId: this.taskData.id,
+        content: this.newNote.content
+      };
+      this.$store.dispatch("addNote", data);
+    },
+    pickUp() {
+      this.$store.dispatch("pickUp", this.taskData);
+    }
+  }
+};
 </script>
 
 <style>
-  .list {
-    list-style-type: none;
-  }
+.list {
+  list-style-type: none;
+  padding-left: 0;
+}
+.card-width {
+  width: fit-content;
+}
+.mouse {
+  cursor: pointer;
+}
 
-  .mouse {
-    cursor: pointer;
-  }
+.misty {
+  background-image: url("../assets/misty.jpeg");
+  background-size: cover;
+}
 
-  .taskFont {
-    font-family: "Amatic SC";
-  }
-
-  .misty {
-    background-image: url("../assets/misty.jpeg");
-    background-size: cover;
-  }
-
-  .misty-bottom {
-    background-image: url("../assets/misty-bottom.jpeg");
-    background-size: cover;
-  }
+.misty-bottom {
+  background-image: url("../assets/misty-bottom.jpeg");
+  background-size: cover;
+}
 </style>
