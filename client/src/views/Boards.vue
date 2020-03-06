@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import NotificationService from "../NotificationService"
   import Navbar from "../components/Navbar";
   export default {
     name: "boards",
