@@ -32,7 +32,7 @@ export default class Startup {
     RegisterControllers(router);
     app.use(router);
 
-    app.use("", express.static(Paths.Public));
+    app.use(express.static(Paths.Public));
     Startup.registerErrorHandlers(app);
   }
 
