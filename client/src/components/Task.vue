@@ -1,12 +1,6 @@
 <template>
-  <div class="col py-1 card-width">
-    <div
-      class="card"
-      style="width: 12.5rem;"
-      draggable="true"
-      @dragstart="pickUp"
-      @dragover.prevent
-    >
+  <div class="col-12 py-1 card-width">
+    <div class="card" style="width: auto;" draggable="true" @dragstart="pickUp" @dragover.prevent>
       <ul class="list-group list list-group-flush">
         <li>
           <span class="pl-1">{{this.taskData.content}}</span>
