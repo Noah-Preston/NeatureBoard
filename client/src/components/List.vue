@@ -7,7 +7,7 @@
     <h3 class="pt-3 list-font">{{listData.title}}</h3>
     <hr style="width:1; size: 60; background:black; margin-top: 0;" />
     <div class="row">
-      <div class="col-3">
+      <div class="col card-width">
         <form @submit.prevent="addTask" class="form-width">
           <input
             type="text"
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="row h-100">
+    <div class="row">
       <div class="col-1 col-pad align-self-end">
         <button @click="deleteList" class="btn btn-lg bg-trasparent bottom">
           <i class="text-danger far fa-trash-alt"></i>
@@ -117,7 +117,9 @@ export default {
 .bottom {
   bottom: 0;
 }
-
+.card-width {
+  width: fit-content;
+}
 #formw {
   width: 80%;
   margin: 1px;

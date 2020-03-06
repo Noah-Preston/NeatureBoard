@@ -3,7 +3,7 @@
     <navbar />
     <div class="row container-fluid" id="paddingRight">
       <div class="col-1">
-        <button @click="deleteBoard" class="btn bg-trasparent" id="trash">
+        <button @click="deleteBoard" class="trash btn bg-trasparent" id="trash">
           <i class="text-danger far fa-trash-alt fa-2x"></i>
         </button>
       </div>
@@ -135,5 +135,10 @@ export default {
 }
 #formpad {
   padding-top: 0;
+}
+.trash:hover {
+  margin-left: 0.1rem;
+  transition: 0.25s ease;
+  text-shadow: 1px 1px 1px black;
 }
 </style>

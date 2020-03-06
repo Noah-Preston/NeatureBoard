@@ -16,6 +16,21 @@ export default class NotificationService {
     }
     return false
   }
+  static async confirmLog() {
+    let res = await swal.fire({
+      title: 'Are you sure you want to log out?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out!'
+    })
+    if (res.value) {
+      return true
+    }
+    return false
+  }
+
 
   static toast(title = "") {
     swal.fire({

@@ -4,7 +4,7 @@
     {{this.noteData.content}}
     <i
       @click="deleteNote"
-      class="text-danger far fa-trash-alt float-right"
+      class="text-danger far fa-trash-alt float-right trash"
     ></i>
   </li>
 </template>
@@ -33,4 +33,9 @@ export default {
 </script>
 
 <style>
+.trash:hover {
+  margin-left: 0.1rem;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
 </style>
