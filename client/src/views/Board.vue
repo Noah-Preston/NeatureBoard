@@ -9,7 +9,7 @@
       </div>
       <div class="col-10">
         <div class="board text-light board-font">
-          <h1 v-if="board.title" id="board-title">{{board.title}}</h1>
+          <h1 v-if="board.title" id="board-title"><strong>{{board.title}}</strong></h1>
           <h1 v-else>Loading...</h1>
           <h1>{{board.description}}</h1>
         </div>
@@ -98,12 +98,12 @@
   }
 
   .board-font {
-    font-family: 'Raleway', sans-serif;
-    text-shadow: 3px 3px rgb(8, 8, 8);
+    font-family: 'Amatic SC';
+    text-shadow: 4px 4px 1px rgb(8, 8, 8);
   }
 
   #board-title {
-    font-size: 5rem;
+    font-size: 4rem;
   }
 
   #trash {
