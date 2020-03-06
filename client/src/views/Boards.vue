@@ -10,10 +10,7 @@
       <div v-for="board in boards" :key="board.id">
         <div class="row p-2">
           <div class="col-4"></div>
-          <router-link
-            :to="{name: 'board', params: {boardId: board._id}}"
-            class="col-4 card text-dark"
-          >
+          <router-link :to="{name: 'board', params: {boardId: board._id}}" class="col-4 card text-dark">
             <h5>{{board.title}}</h5>
             <span>{{board.description}}</span>
           </router-link>
@@ -25,47 +22,48 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar";
-export default {
-  name: "boards",
-  mounted() {
-    this.$store.dispatch("getBoards");
-  },
-  data() {
-    return {
-      newBoard: {
-        title: "",
-        description: ""
+  import Navbar from "../components/Navbar";
+  export default {
+    name: "boards",
+    mounted() {
+      this.$store.dispatch("getBoards");
+    },
+    data() {
+      return {
+        newBoard: {
+          title: "",
+          description: ""
+        }
+      };
+    },
+    computed: {
+      boards() {
+        return this.$store.state.boards;
       }
-    };
-  },
-  computed: {
-    boards() {
-      return this.$store.state.boards;
+    },
+    methods: {
+      addBoard() {
+        this.$store.dispatch("addBoard", this.newBoard);
+        this.newBoard = { title: "", description: "" };
+        NotificationService.toast("What a beaut!")
+      }
+    },
+    components: {
+      Navbar
     }
-  },
-  methods: {
-    addBoard() {
-      this.$store.dispatch("addBoard", this.newBoard);
-      this.newBoard = { title: "", description: "" };
-    }
-  },
-  components: {
-    Navbar
-  }
-};
+  };
 </script>
 
 <style>
-.boardsBackground {
-  background-image: URL("../assets/board-background.jpg");
-  background-size: cover;
-  height: 86.8vh;
-  width: 100vw;
-  overflow-x: auto;
-  width: auto;
-  white-space: nowrap;
-  flex-wrap: nowrap;
-  margin-bottom: 0vh;
-}
+  .boardsBackground {
+    background-image: URL("../assets/board-background.jpg");
+    background-size: cover;
+    height: 86.8vh;
+    width: 100vw;
+    overflow-x: auto;
+    width: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    margin-bottom: 0vh;
+  }
 </style>

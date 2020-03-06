@@ -71,6 +71,7 @@
         this.$store.dispatch("getListsByBoardId", {
           id: this.$route.params.boardId
         });
+        NotificationService.toast("How NEAT is that!")
       },
       async deleteBoard() {
         if (await NotificationService.confirmDelete()) {
@@ -114,7 +115,7 @@
   }
 
   .bg-img {
-    background-image: url("../assets/bark.jpeg");
+    background-image: url("../assets/cloud.jpg");
     background-size: cover;
   }
 </style>

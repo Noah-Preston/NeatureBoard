@@ -58,7 +58,7 @@ export default new Vuex.Store({
     pickUp(state, task) {
       let temp = state.tasks[task.listId].find(t => t.id == task.id)
       state.temp.push(temp)
-      state.tasks = state.tasks[task.listId].filter(t => t.id != task.id)
+      // state.tasks = state.tasks[task.listId].filter(t => t.id != task.id)
     },
     moveTask(state, listId) {
       state.temp = []
@@ -192,11 +192,14 @@ export default new Vuex.Store({
     },
     pickUp({ commit, dispatch }, taskData) {
       commit("pickUp", taskData)
+      // commit("setTasks", taskData)
     },
     async moveTask({ commit, dispatch, state }, update) {
       await api.put('tasks/' + state.temp[0].id, update)
-      commit("moveTask", update.listId)
       dispatch("getTasks", update.listId)
+      dispatch("getTasks", state.temp[0].listId)
+      commit("moveTask", update.listId)
+
     },
     //#endregion
 
