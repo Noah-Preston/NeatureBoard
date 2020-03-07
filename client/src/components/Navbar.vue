@@ -41,7 +41,7 @@ export default {
   methods: {
     async logout() {
       if (await NotificationService.confirmLog()) {
-        await this.$auth.logout({ returnTo: nwindow.location.href });
+        await this.$auth.logout({ returnTo: window.location.href });
         this.$store.dispatch("resetBearer");
         this.$router.push({ name: "home" });
       }
