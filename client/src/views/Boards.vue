@@ -4,7 +4,13 @@
     <div class="container-fluid boards boardsBackground">
       <form @submit.prevent="addBoard" class="p-3">
         <input type="text" placeholder="title" v-model="newBoard.title" required class="rounded" />
-        <input type="text" placeholder="description" v-model="newBoard.description" class="rounded" />
+        <input
+          type="text"
+          placeholder="description"
+          v-model="newBoard.description"
+          class="rounded"
+          required
+        />
         <button type="submit" class="btn btn-success">Create Board</button>
       </form>
       <div v-for="board in boards" :key="board.id">
@@ -48,6 +54,7 @@ export default {
   methods: {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
+      //NOTE Add this to other inputs aswell
       this.newBoard = { title: "", description: "" };
       NotificationService.toast("What a beaut!");
     }

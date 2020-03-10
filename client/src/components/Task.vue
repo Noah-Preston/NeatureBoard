@@ -4,7 +4,10 @@
       <ul class="list-group list list-group-flush">
         <li>
           <span class="pl-1">{{this.taskData.content}}</span>
-          <i @click="deleteTask" class="text-danger far fa-trash-alt mouse float-right pt-1 pr-1"></i>
+          <i
+            @click="deleteTask"
+            class="text-danger far fa-trash-alt mouse float-right pt-1 pr-1 trash"
+          ></i>
           <br />
           <div
             class="pl-1 float-left note-count"
@@ -110,6 +113,10 @@ export default {
         content: this.newNote.content
       };
       this.$store.dispatch("addNote", data);
+      this.newNote = {
+        content: "",
+        taskId: this.taskData.id
+      };
     },
     pickUp() {
       this.$store.dispatch("pickUp", this.taskData);
@@ -146,5 +153,9 @@ export default {
 .misty-bottom {
   background-image: url("../assets/misty-bottom.jpeg");
   background-size: cover;
+}
+.trash:hover {
+  text-shadow: 1px 1px black;
+  transition: 0.2s;
 }
 </style>

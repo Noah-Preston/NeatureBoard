@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from '../router/index'
+import { socketStore } from "./socketStore"
 
 Vue.use(Vuex)
 
@@ -230,7 +231,10 @@ export default new Vuex.Store({
         console.error(error)
         router.push({ name: "Boards" })
       }
-    },
+    }
     ////#endregion
+  },
+  modules: {
+    socketStore
   }
 })

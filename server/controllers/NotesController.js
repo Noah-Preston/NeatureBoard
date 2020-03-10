@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { noteService } from "../services/NoteService";
+import socketService from "../services/SocketService";
 
 export class NotesController extends BaseController {
   constructor() {
@@ -26,6 +27,7 @@ export class NotesController extends BaseController {
     try {
       req.body.creatorEmail = req.userInfo.email
       let data = await noteService.create(req.body)
+      socketService.messageRoom("notes", "newNote", data)
       return res.status(201).send(data)
     } catch (error) {
       next(error)
@@ -42,6 +44,7 @@ export class NotesController extends BaseController {
   async delete(req, res, next) {
     try {
       await noteService.delete(req.params.id, req.userInfo.email)
+      socketService.messageRoom("notes")
       res.send("DeLorted")
     } catch (error) {
       next(error)

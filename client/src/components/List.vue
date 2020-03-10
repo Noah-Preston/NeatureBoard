@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-1 col-pad align-self-end">
         <button @click="deleteList" class="btn btn-lg bg-trasparent bottom">
-          <i class="text-danger far fa-trash-alt"></i>
+          <i class="text-danger far fa-trash-alt" id="trash"></i>
         </button>
       </div>
     </div>
@@ -79,6 +79,10 @@ export default {
         content: this.newTask.content
       };
       this.$store.dispatch("addTask", data);
+      this.newTask = {
+        content: "",
+        listId: this.listData.id
+      };
       NotificationService.toast("That's pretty NEAT!");
     },
     async deleteList() {
@@ -130,5 +134,10 @@ export default {
 }
 .col-pad {
   padding: 0;
+}
+#trash:hover {
+  margin-left: 0.1rem;
+  text-shadow: 1px 1px black;
+  transition: 0.3s;
 }
 </style>

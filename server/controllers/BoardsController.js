@@ -3,7 +3,8 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { boardService } from '../services/BoardService';
 import { listService } from "../services/ListService";
-
+import socketService from "../services/SocketService";
+import Board from "../models/Board";
 
 //PUBLIC
 export class BoardsController extends BaseController {
@@ -40,6 +41,7 @@ export class BoardsController extends BaseController {
     try {
       req.body.creatorEmail = req.userInfo.email
       let data = await boardService.create(req.body)
+      socketService.messageRoom("boards", "newBoard", data)
       return res.status(201).send(data)
     } catch (error) { next(error) }
   }
@@ -54,6 +56,7 @@ export class BoardsController extends BaseController {
   async delete(req, res, next) {
     try {
       await boardService.delete(req.params.id, req.userInfo.email)
+      socketService.messageRoom("boards", "newBoard")
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }

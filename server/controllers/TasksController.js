@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { taskService } from "../services/TaskService";
 import { noteService } from "../services/NoteService";
+import socketService from "../services/SocketService";
 
 export class TasksController extends BaseController {
   constructor() {
@@ -28,6 +29,7 @@ export class TasksController extends BaseController {
     try {
       req.body.creatorEmail = req.userInfo.email
       let data = await taskService.create(req.body)
+      socketService.messageRoom("tasks", "newTask", data)
       return res.status(201).send(data)
     } catch (error) {
       next(error)
@@ -45,6 +47,7 @@ export class TasksController extends BaseController {
   async delete(req, res, next) {
     try {
       await taskService.delete(req.params.id, req.userInfo.email)
+      socketService.messageRoom("tasks")
       res.send("DeLorted")
     } catch (error) {
       next(error)

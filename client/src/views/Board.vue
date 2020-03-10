@@ -42,7 +42,8 @@ export default {
   data() {
     return {
       newList: {
-        boardId: this.$route.params.boardId
+        boardId: this.$route.params.boardId,
+        title: ""
       }
     };
   },
@@ -79,6 +80,10 @@ export default {
       this.$store.dispatch("getListsByBoardId", {
         id: this.$route.params.boardId
       });
+      this.newList = {
+        boardId: this.$route.params.boardId,
+        title: ""
+      };
       NotificationService.toast("How NEAT is that!");
     },
     async deleteBoard() {
